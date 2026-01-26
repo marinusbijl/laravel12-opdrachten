@@ -11,7 +11,8 @@
 
     <!-- strat content -->
     <div class="bg-gray-100 flex-1 p-6 md:mt-16">
-        content here
+        @yield('topmenu')
+        @yield('content') 
     </div>
     <!-- end content -->
 

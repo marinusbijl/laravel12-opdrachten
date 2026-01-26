@@ -32,8 +32,8 @@ test('the route name open.projects.index points to /projects', function() {
 
 test('the public projects page shows project details', function() {
     $response = $this->get(route('open.projects.index'));
-    $escapedNameValue = htmlspecialchars($this->project->first()->name, ENT_QUOTES);
-    $escapedDescriptionValue = htmlspecialchars($this->project->first()->description, ENT_QUOTES);
+    $escapedNameValue = $this->projects->first()->name;
+    $escapedDescriptionValue = $this->projects->first()->description;
     $response->assertSee($this->projects->first()->id);
     $response->assertSee($escapedNameValue);
     $response->assertSee(Str::limit($escapedDescriptionValue, 350));
@@ -45,20 +45,20 @@ test('the public projects page shows paginated projects', function() {
     // Ensure only 10 projects are shown on the first page
     $projectsOnFirstPage = $this->projects->take(10);
     $projectsOnFirstPage->each(function ($project) use ($response) {
-        $escapedNameValue = htmlspecialchars($project->name, ENT_QUOTES);
+        $escapedNameValue = $project->name;
         $response->assertSee($escapedNameValue);
     });
 
     $projectsNotOnFirstPage = $this->projects->skip(10);
     $projectsNotOnFirstPage->each(function ($project) use ($response) {
-        $escapedNameValue = htmlspecialchars($project->name, ENT_QUOTES);
+        $escapedNameValue = $project->name;
         $response->assertDontSee($escapedNameValue); // This should be on the second page
     });
 
     $response = $this->get(route('open.projects.index', ['page' => 2]));
     $projectsOnSecondPage = $this->projects->skip(10)->take(5);
     $projectsOnSecondPage->each(function ($project) use ($response) {
-        $escapedNameValue = htmlspecialchars($project->name, ENT_QUOTES);
+        $escapedNameValue = $project->name;
         $response->assertSee($escapedNameValue); // This should be on the second page
     });
 })->group('Opdracht11');
