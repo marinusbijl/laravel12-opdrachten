@@ -46,7 +46,9 @@
                         <th class="px-4 py-3">Description</th>
                         <th class="px-4 py-3">Details</th>
                         <th class="px-4 py-3">Edit</th>
-                        <th class="px-4 py-3">Delete</th>
+                        @can('delete project')
+                            <th class="px-4 py-3">Delete</th>
+                        @endcan
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y">
@@ -61,11 +63,13 @@
                                     <a href="{{ route('projects.edit', ['project' => $project->id]) }}">Wijzigen</a>
                                 </div>
                             </td>
-                            <td>
-                                <div class="flex items-center space-x-4 text-sm">
-                                    <a href="{{ route('projects.delete', ['project' => $project->id]) }}">Verwijderen</a>
-                                </div>
-                            </td>
+                            @can('delete project')
+                                <td>
+                                    <div class="flex items-center space-x-4 text-sm">
+                                        <a href="{{ route('projects.delete', ['project' => $project->id]) }}">Verwijderen</a>
+                                    </div>
+                                </td>
+                            @endcan
                         </tr>
                     @endforeach
                     </tbody>

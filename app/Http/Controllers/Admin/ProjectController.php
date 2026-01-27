@@ -7,10 +7,23 @@ use App\Http\Requests\ProjectStoreRequest;
 use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\View\View;
+use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class ProjectController extends Controller
+class ProjectController extends Controller implements HasMiddleware
 {
+    public static function middleware(): array
+    {
+        return [
+            new Middleware(PermissionMiddleware::using('index project'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('show project'), only: ['show']),
+            new Middleware(PermissionMiddleware::using('create project'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('edit project'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('delete project'), only: ['delete', 'destroy']),
+        ];
+    }
     /**
      * Display a listing of the resource.
      */

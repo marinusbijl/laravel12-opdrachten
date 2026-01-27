@@ -31,6 +31,16 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::middleware(['role:student|teacher|admin'])->group(function () {
+    Route::get('/admin/projects/{project}/delete', [Admin\ProjectController::class, 'delete'])
+        ->name('projects.delete');
+    Route::resource('/admin/projects', Admin\ProjectController::class);
+
+    Route::get('/dashboard/', fn() => view('dashboard'))
+        ->middleware(['auth', 'verified'])
+        ->name('dashboard');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
