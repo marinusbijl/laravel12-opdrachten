@@ -6,15 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Project extends Model
+class Activity extends Model
 {
-    /** @use HasFactory<\Database\Factories\ProjectFactory> */
+    /** @use HasFactory<\Database\Factories\ActivityFactory> */
     use HasFactory;
-
-    protected $guarded = [
-        'name',
-        'description',
-    ];
 
     public function tasks(): HasMany
     {
