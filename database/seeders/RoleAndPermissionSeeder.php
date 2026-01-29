@@ -30,5 +30,15 @@ class RoleAndPermissionSeeder extends Seeder
 
         $admin = Role::create(['name' => 'admin']);
         $admin->givePermissionTo(Permission::all());
+
+        Permission::create(['name' => 'index task']);
+        Permission::create(['name' => 'create task']);
+        Permission::create(['name' => 'show task']);
+        Permission::create(['name' => 'edit task']);
+        Permission::create(['name' => 'delete task']);
+
+        $student->givePermissionTo(['index task', 'create task', 'show task', 'edit task', 'delete task']);
+        $teacher->givePermissionTo(['index task', 'create task', 'show task', 'edit task', 'delete task']);
+        $admin->givePermissionTo(['index task', 'create task', 'show task', 'edit task', 'delete task']);
     }
 }

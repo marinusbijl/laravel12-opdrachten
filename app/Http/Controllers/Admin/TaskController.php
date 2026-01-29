@@ -6,15 +6,17 @@ use App\Models\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskStoreRequest;
 use App\Http\Requests\TaskUpdateRequest;
+use Illuminate\View\View;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $tasks = Task::paginate(15);
+        return view('admin.tasks.index', ['tasks' => $tasks]);
     }
 
     /**
@@ -53,6 +55,11 @@ class TaskController extends Controller
      * Update the specified resource in storage.
      */
     public function update(TaskUpdateRequest $request, Task $task)
+    {
+        //
+    }
+
+    public function delete(Task $task)
     {
         //
     }

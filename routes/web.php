@@ -20,11 +20,21 @@ Route::get('/admin', function () {
 Route::resource('/admin/projects', Admin\ProjectController::class);
 
 Route::prefix('admin')->group(function () {
-    Route::get('projects/{project}/delete',
+    // Projects
+    Route::get(
+        'projects/{project}/delete',
         [Admin\ProjectController::class, 'delete']
     )->name('projects.delete');
 
     Route::resource('projects', Admin\ProjectController::class);
+
+    // Tasks
+    Route::get(
+        'tasks/{task}/delete',
+        [Admin\TaskController::class, 'delete']
+    )->name('tasks.delete');
+
+    Route::resource('tasks', Admin\TaskController::class);
 });
 
 Route::view('dashboard', 'dashboard')
@@ -35,6 +45,10 @@ Route::middleware(['role:student|teacher|admin'])->group(function () {
     Route::get('/admin/projects/{project}/delete', [Admin\ProjectController::class, 'delete'])
         ->name('projects.delete');
     Route::resource('/admin/projects', Admin\ProjectController::class);
+
+    Route::get('/admin/tasks/{task}/delete', [Admin\TaskController::class, 'delete'])
+        ->name('tasks.delete');
+    Route::resource('/admin/tasks', Admin\TaskController::class);
 
     Route::get('/dashboard/', fn() => view('dashboard'))
         ->middleware(['auth', 'verified'])
@@ -49,4 +63,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
