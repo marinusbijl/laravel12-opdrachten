@@ -22,7 +22,12 @@ class TaskUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'task' => 'required|string|min:10|max:200',
+            'begindate' => 'required|date',
+            'enddate' => 'nullable|date',
+            'user_id' => 'nullable|integer|exists:users,id',
+            'project_id' => 'required|integer|exists:projects,id',
+            'activity_id' => 'required|integer|exists:activities,id',
         ];
     }
 }

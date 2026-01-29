@@ -59,7 +59,7 @@ test('tasks create page displays correct project dropdown options', function () 
 
     foreach ($projects as $project) {
         $response->assertSee('value="'.$project->id.'"', false);
-        $response->assertSee($project->name, false);
+        $response->assertSee(htmlspecialchars($project->name, ENT_QUOTES), false);
     }
 })->group('Opdracht21');
 

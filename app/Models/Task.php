@@ -11,6 +11,15 @@ class Task extends Model
     /** @use HasFactory<\Database\Factories\TaskFactory> */
     use HasFactory;
 
+    protected $guarded = [
+        'task',
+        'begindate',
+        'enddate',
+        'user_id',
+        'project_id',
+        'activity_id',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
